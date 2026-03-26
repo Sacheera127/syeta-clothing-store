@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syeta Fashion | Modern eCommerce</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Announcement Bar -->
+    <div class="announcement-bar">
+        FREE SHIPPING FOR ORDERS ABOVE <span class="highlight-text">RS. 10,000</span> WITHIN SRI LANKA
+    </div>
+
+    <!-- Header / Navbar -->
+    <header id="header">
+        <div class="nav-container">
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <a href="#" class="logo">S Y E T A</a>
+            
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-links">
+                    <li><a href="#" class="active nav-category" data-filter="all">Shop All</a></li>
+                    <li><a href="#" class="nav-category" data-filter="new">New Arrivals</a></li>
+                    <li><a href="#" class="nav-category" data-filter="dresses">Dresses</a></li>
+                    <li><a href="#" class="nav-category" data-filter="tops">Tops</a></li>
+                    <li><a href="#" class="nav-category" data-filter="bottoms">Bottoms</a></li>
+                    <li><a href="#" class="nav-category" data-filter="casual">Casual</a></li>
+                </ul>
+                <button class="close-menu" id="closeMenuBtn"><i class="fas fa-times"></i></button>
+            </nav>
+
+            <div class="nav-icons">
+                <div class="search-box" id="searchBox">
+                    <input type="text" id="searchInput" placeholder="Search items...">
+                    <button class="search-close" id="searchCloseBtn"><i class="fas fa-times"></i></button>
+                </div>
+                <a href="#" id="searchIconBtn"><i class="fas fa-search"></i></a>
+                
+                <div class="user-dropdown-container">
+                    <a href="#" id="googleLoginBtn"><i class="far fa-user"></i></a>
+                    <div class="user-dropdown" id="userDropdown">
+                        <h4 id="authTitle" style="margin-bottom: 15px; font-size: 0.95rem; text-align: center;">Join Syeta</h4>
+                        <div id="googleSignInDiv"></div>
+                        <div id="userInfo" style="display:none; text-align:center;">
+                            <img id="userAvatar" src="" alt="Profile" style="width:50px; height:50px; border-radius:50%; margin:0 auto 10px; display:block;">
+                            <p id="userName" style="font-weight:600; font-size:0.9rem; margin-bottom:2px;"></p>
+                            <p id="userEmail" style="font-size:0.75rem; color:#777; margin-bottom:15px;"></p>
+                            <button id="signOutBtn" style="padding: 8px 15px; background:var(--primary-color); color:white; border:none; width: 100%; border-radius:4px; font-size:0.85rem; cursor:pointer;">Sign Out</button>
+                            <button id="adminLoginBtn" style="margin-top: 10px; padding: 8px 15px; background:#333; color:white; border:none; width: 100%; border-radius:4px; font-size:0.85rem; cursor:pointer;"><i class="fas fa-lock"></i> Admin Dashboard</button>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#" class="cart-icon" id="wishlistOpenBtn" title="Wishlist">
+                    <i class="far fa-heart"></i>
+                    <span class="cart-badge" id="wishlistCount" style="display:none; background-color: #d62828;">0</span>
+                </a>
+                
+                <a href="#" id="cartIcon" class="cart-icon">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-badge" id="cartBadge" style="display:none;">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Carousel Hero Section -->
+    <div class="carousel-container" id="syetaCarousel">
+        <div class="carousel-track" id="carouselTrack">
+            <div class="carousel-slide active"><img src="Images/crousel1.png" alt="Hero 1"></div>
+            <div class="carousel-slide"><img src="Images/crousel2.png" alt="Hero 2"></div>
+            <div class="carousel-slide"><img src="Images/crousel3.png" alt="Hero 3"></div>
+        </div>
+        <div class="carousel-nav">
+            <button class="carousel-indicator active" data-slide="0"></button>
+            <button class="carousel-indicator" data-slide="1"></button>
+            <button class="carousel-indicator" data-slide="2"></button>
+        </div>
+        <button class="carousel-arrow prev" id="carouselPrev"><i class="fas fa-chevron-left"></i></button>
+        <button class="carousel-arrow next" id="carouselNext"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <!-- Main Content Layout -->
+    <main class="main-content">
+        <!-- Sidebar Filter -->
+        <aside class="sidebar">
+            <div class="filter-section">
+                <div class="filter-header">
+                    <h3>COLLECTION</h3>
+                    <i class="fas fa-chevron-up"></i>
+                </div>
+                <div class="filter-body">
+                    <ul class="filter-list" id="categoryFilter">
+                        <li><label class="custom-checkbox"><input type="radio" name="category" value="all" checked> <span class="checkmark"></span> Shop All</label></li>
+                        <li><label class="custom-checkbox"><input type="radio" name="category" value="new"> <span class="checkmark"></span> New Arrivals</label></li>
+                        <li><label class="custom-checkbox"><input type="radio" name="category" value="casual"> <span class="checkmark"></span> Casual Wear</label></li>
+                        <li><label class="custom-checkbox"><input type="radio" name="category" value="work"> <span class="checkmark"></span> Work Wear</label></li>
+                        <li><label class="custom-checkbox"><input type="radio" name="category" value="party"> <span class="checkmark"></span> Party Dress</label></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-header">
+                    <h3>PRICE</h3>
+                    <i class="fas fa-chevron-up"></i>
+                </div>
+                <div class="filter-body">
+                    <div class="price-range">
+                        <div class="price-inputs">
+                            <div class="price-input">
+                                <span>Rs</span>
+                                <input type="number" id="minPrice" value="0">
+                            </div>
+                            <span class="to">To</span>
+                            <div class="price-input">
+                                <span>Rs</span>
+                                <input type="number" id="maxPrice" value="15000">
+                            </div>
+                        </div>
+                        <button class="apply-filter" id="applyPriceFilter">Apply</button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Product Area -->
+        <div class="product-area">
+            <div class="product-header">
+                <div class="sorting">
+                    <label for="sortSelect">Sort:</label>
+                    <div class="custom-select">
+                        <select id="sortSelect">
+                            <option value="newest">Date, new to old</option>
+                            <option value="price-low">Price Low &rarr; High</option>
+                            <option value="price-high">Price High &rarr; Low</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="showing-count" id="productCount">Showing 0 products</div>
+                <div class="view-toggles">
+                    <button id="gridViewBtn" class="active"><i class="fas fa-th-large"></i></button>
+                    <button id="listViewBtn"><i class="fas fa-list"></i></button>
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="product-grid grid-view" id="productGrid">
+                <!-- Products will be dynamically inserted here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <img src="Images/Syeta Fashion Logo.jpg" alt="SYETA" style="width: 150px; margin-bottom: 20px; border-radius: 4px;">
+                <p>Curating the finest global and local fashion trends for the modern wardrobe.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Shop All</a></li>
+                    <li><a href="NEW ARRIVALS.html">New Arrivals</a></li>
+                    <li><a href="PARTY DRESS.html">Party Dress</a></li>
+                    <li><a href="SIZE GUIDE.html">Size Guide</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Customer Care</h4>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Newsletter</h4>
+                <p>Subscribe to receive updates, access to exclusive deals, and more.</p>
+                <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed!');">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Syeta Fashion. All Rights Reserved. | <a href="#" id="footerAdminLoginBtn" style="color:#666; text-decoration:underline;">Admin Portal</a></p>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Your Bag</h2>
+            <a href="#" class="close-cart" id="closeCartBtn"><i class="fas fa-times"></i></a>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items dynamically loaded -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotalPrice">LKR 0.00</span>
+            </div>
+            <p style="font-size: 0.8rem; color: #888; text-align: center; margin-bottom: 15px;">Shipping & taxes calculated at checkout</p>
+            <button class="checkout-btn" id="checkoutBtn"><i class="fab fa-whatsapp"></i> Checkout via WhatsApp</button>
+        </div>
+    </div>
+    
+    <!-- Wishlist Sidebar -->
+    <div class="cart-sidebar" id="wishlistSidebar">
+        <div class="cart-header">
+            <h2>Your Wishlist</h2>
+            <a href="#" class="close-cart" id="closeWishlistBtn"><i class="fas fa-times"></i></a>
+        </div>
+        <div class="cart-items" id="wishlistItems">
+            <!-- Wishlist items dynamically loaded -->
+        </div>
+        <div class="cart-footer">
+            <button class="checkout-btn" onclick="document.getElementById('closeWishlistBtn').click();">Continue Shopping</button>
+        </div>
+    </div>
+
+    <!-- Quick View Product Modal -->
+    <div class="product-modal" id="productModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModalBtn"><i class="fas fa-times"></i></button>
+            <div class="modal-grid">
+                <div class="modal-image">
+                    <img id="modalImg" src="" alt="Product Image">
+                </div>
+                <div class="modal-details">
+                    <div class="modal-badges">
+                        <span class="in-stock-badge">In stock</span>
+                    </div>
+                    <h2 id="modalTitle">Product Title</h2>
+                    <p class="modal-price" id="modalPrice">LKR 0.00</p>
+                    
+                    <div class="size-selector">
+                        <h4>Select Size</h4>
+                        <div class="size-options">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+
+                    <div class="quantity-selector">
+                        <h4>Quantity</h4>
+                        <div class="qty-control">
+                            <button class="qty-btn minus">-</button>
+                            <input type="number" id="modalQty" value="1" min="1">
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                    </div>
+                        
+                    <div id="modalSizeChartContainer" style="margin-bottom: 20px;"></div>
+
+                    <button class="add-to-cart-large" id="addToCartBtn" style="margin-bottom: 10px;">Add to Bag</button>
+                    <button class="add-to-cart-large" id="addToWishlistBtn" style="background-color: transparent; color: var(--text-color); border: 2px solid var(--text-color);">Add to Wishlist</button>
+                    
+                    <div class="product-meta">
+                        <p><strong>SKU:</strong> <span id="modalSku">SYE-000</span></p>
+                        <p><strong>Category:</strong> <span id="modalCategory">New Arrivals</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    
+    <!-- Edit Product Modal (Kept clean) -->
+    <div class="product-modal admin-dashboard-overlay" id="editProductModal" style="z-index: 2100;">
+        <div class="admin-dashboard-card" style="max-width: 500px;">
+            <button class="admin-close-btn" id="closeEditModalBtn">&times;</button>
+            <h3 class="admin-login-title" style="text-align:left; margin-bottom:20px;">Edit Product</h3>
+            <form id="editForm" class="admin-form">
+                <input type="hidden" id="editProductId">
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" id="editName" required>
+                </div>
+                <div class="form-group">
+                    <label>Product Photos (Select multiple)</label>
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="editImages" accept="image/*" multiple>
+                    </div>
+                    <small style="color:#777;">Leave empty to keep existing images.</small>
+                </div>
+                <div class="form-group">
+                    <label>Size Chart Photo</label>
+                    <div class="file-upload-wrapper">
+                        <input type="file" id="editSizeChart" accept="image/*">
+                    </div>
+                    <small style="color:#777;">Leave empty to keep existing size chart.</small>
+                </div>
+                <button type="submit" class="admin-submit-btn">Save Changes</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Admin Login Modal -->
+    <div class="product-modal admin-login-overlay" id="adminLoginModal" style="z-index: 3000;">
+        <div class="admin-login-curved">
+            <button class="admin-close-circle" id="closeAdminLoginBtn"><i class="fas fa-times"></i></button>
+            <h3 class="admin-curved-title">Admin Access</h3>
+            <div class="admin-curved-input-wrapper">
+                <input type="password" id="adminPasswordInput" placeholder="Enter Password" class="admin-curved-input">
+            </div>
+            <button class="admin-curved-submit" id="adminLoginSubmitBtn">SIGN IN</button>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Modal -->
+    <div class="product-modal admin-dashboard-overlay" id="adminModal" style="z-index: 2000;">
+        <div class="admin-dashboard-card">
+            <button class="admin-close-btn" id="closeAdminBtn">&times;</button>
+            <div class="admin-dashboard-header">
+                <h2>Syeta Admin Dashboard</h2>
+                <button id="adminLogoutBtn" class="admin-logout-btn">Logout</button>
+            </div>
+            
+            <div class="admin-tabs">
+                <button id="tabManage" class="admin-tab active">Manage Inventory</button>
+                <button id="tabAdd" class="admin-tab">Add New Product</button>
+            </div>
+            
+            <!-- Manage Section -->
+            <div id="adminManageSection" class="admin-section">
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Product</th>
+                                <th>Stock Status</th>
+                                <th>Available Sizes</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminProductTable">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Add Section -->
+            <div id="adminAddSection" class="admin-section" style="display:none;">
+                <form id="addForm" class="admin-form">
+                    <div class="form-group">
+                        <label>Product Name</label>
+                        <input type="text" id="addName" required placeholder="e.g. Syeta Bella Dress">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Price (LKR)</label>
+                            <input type="number" id="addPrice" required placeholder="0.00">
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="addCategory" required>
+                                <option value="new">New Arrivals</option>
+                                <option value="dresses">Dresses</option>
+                                <option value="tops">Tops</option>
+                                <option value="bottoms">Bottoms</option>
+                                <option value="casual">Casual Wear</option>
+                                <option value="work">Work Wear</option>
+                                <option value="party">Party Dress</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Product Photos (Select multiple)</label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="addImage" accept="image/*" multiple required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Size Chart Photo (Optional)</label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="addSizeChart" accept="image/*">
+                        </div>
+                    </div>
+                    <button type="submit" class="admin-submit-btn">Save Product</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- WhatsApp Floating Contact Form -->
+    <div class="wa-floating-btn" id="waFloatingBtn">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+    
+    <div class="wa-popup" id="waPopup">
+        <div class="wa-header">
+            <h4>Live Chat</h4>
+            <i class="fas fa-times" id="waCloseBtn" style="cursor:pointer;"></i>
+        </div>
+        <div class="wa-body">
+            <p style="font-size:0.85rem; margin-bottom:15px;">Enter your details to start chatting with us directly on WhatsApp.</p>
+            <input type="text" id="waNameInput" placeholder="Your Name" style="width:100%; padding:8px; margin-bottom:10px; border:1px solid #ddd; border-radius:4px; font-family:var(--font-main);">
+            <input type="text" id="waPhoneInput" placeholder="Your Home Town" style="width:100%; padding:8px; margin-bottom:15px; border:1px solid #ddd; border-radius:4px; font-family:var(--font-main);">
+            <button id="waStartChatBtn" style="width:100%; padding:10px; background:#25D366; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:600;"><i class="fab fa-whatsapp"></i> Start Chat</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Action successful</div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
